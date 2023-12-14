@@ -13,11 +13,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
 import { login, register } from "../../redux/slices/Auth";
 import {auth,provider} from '../googleSignin/config'
-// import { useSession,signIn } from "next-auth/react";
+
 
 
 const Login = ({ setDilogOpen }) => {
-  const { data: session } = useSession()
+  
   const router = useRouter();
   const dispatch = useDispatch();
   const handleForget = () => {
