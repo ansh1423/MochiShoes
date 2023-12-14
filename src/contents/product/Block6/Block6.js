@@ -131,7 +131,7 @@ console.log(props.sliderData)
             // },
         ]
       };
- const data = useSelector((state)=>state.product.product)
+ const data = useSelector((state)=>state?.product?.product)
  console.log(data)
   return (
     <>

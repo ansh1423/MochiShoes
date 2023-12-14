@@ -43,7 +43,7 @@ const Index = ({setQuery}) => {
   const handleClick = () => {
     setDilogOpen(true);
   };
-  const cartItem =useSelector((state)=>state.cart.cart)
+  const cartItem =useSelector((state)=>state?.cart?.cart)
 console.log(cartItem);
 
 const fetchProducts = async(state) => {

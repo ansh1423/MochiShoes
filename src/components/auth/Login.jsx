@@ -56,7 +56,8 @@ const Login = ({ setDilogOpen }) => {
         action.resetForm();
       },
     }); // console.log(errors)
-    if(session){
+  
+
   return (
     <>
     <div className="flex justify-center  bg-rose-200     items-center">
@@ -155,7 +156,7 @@ const Login = ({ setDilogOpen }) => {
     </>
   );
 };
-}
+
 
 
 export default Login;

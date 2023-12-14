@@ -49,7 +49,7 @@ console.log(err)
         </button>
        <div className=" gap-2">
         <p className=" text-center">Do you have account ? </p>
-        <p className="text-center cursor-pointer underline" onClick={router.push("./login")}>Login</p>
+        <p className="text-center cursor-pointer underline" onClick={()=>router.push("/login")}>Login</p>
         </div>
       </div>
     </div>
