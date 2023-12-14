@@ -3,11 +3,11 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../../src/redux/slice/auth';
-import { createOrder, orderList, updateOrder } from '../../../src/redux/slice/Order';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { cartList, deleteManyCart } from '../../../src/redux/slice/cartRoutes';
-import { useSearchParams } from 'react-router-dom'
+import { Orderlist, updateOrder } from '../../../src/redux/slices/Order';
+import { Cartlist } from '../../../src/redux/slices/Cart';
+
 function Payment() {
 
     const dispatch = useDispatch()
@@ -20,14 +20,14 @@ function Payment() {
     // const {carts} = useSelector((state)=> state.cart);
     const {orders} = useSelector((state) => state.order);
     
-    // useEffect(()=> {
-    //     dispatch(getUser());
+     useEffect(()=> {
+         dispatch(getUser());
         
-    //     // dispatch(cartList())
-    // },[])
+         dispatch(Cartlist())
+     },[])
     useEffect(()=> {
         // dispatch(getUser());
-        dispatch(orderList())
+        dispatch(Orderlist())
         
         // dispatch(cartList())
     },[])
