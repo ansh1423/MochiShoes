@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.slick-prev::before,
+.slick-next::before{
+    display: none;
+}
+/* .slick-next{
+width: 4vw;
+} */
+body{
+  
+    font-family: 'Mulish', sans-serif;
+}
+a {
+    color: #000;
+    position: relative;
+    text-decoration: none;
+  }
+  
+  a::before {
+    background: hsl(45 100% 70%);
+    content: "";
+    inset: 0;
+    position: absolute;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease-in-out;
+    z-index: -1;
+  }
+  
+  a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  
+.slick-next{
+    right:px !important;
+    border-top-right-radius: 7px !important;
+    border-bottom-right-radius: 7px !important;
+    z-index: 800 !important;
+ 
+
+    
+}
+.slick-prev{
+    left:0px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    z-index: 200;
+}
+.common-button {
+    @apply border-2 border-black flex items-center justify-center w-11 h-8 bg-slate-50 my-1 mx-2 py-1 px-1;
+  }
+  
+
+/* .slick-dots{
+    display: flex !important;
+    /* width: 100px !important; */
+    /* flex-direction: column !important; */
+    /* gap: 5px !important; */
+    /* align-items: flex-start !important; */
+    /* bottom: 0 !important ; */
+    /* top: 0 !important; */
+/* } */ 
+.slick-dots li{
+    width:100px !important;
+    height: 100px !important;
+}
+@media (max-width:1200px){
+    .slick-dots{
+        gap:15px !important;
+    }
+}
+@media (max-width:960px){
+    .slick-dots{
+        flex-direction: row !important;
+        width: 100% !important;
+        margin-top: 15px !important;
+        gap: 0px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        top: 100% !important;    
+    }
+    .slick-dots li button:before{
+        font-size: 9px !important;
+    }
+}
