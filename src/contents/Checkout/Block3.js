@@ -156,7 +156,7 @@ function Block3() {
   
 
       cashOnDelivery()
-      const {data} = await axios.post('http://localhost:8000/userapp/payment/checkout',option, {
+      const {data} = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/userapp/payment/checkout`,option, {
        headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }
    });
     //  if(data.status==='SUCCESS'){
@@ -170,7 +170,7 @@ function Block3() {
         "description": "Test Transaction",
         "image": "https://avatars.githubusercontent.com/u/86181346?v=4",
         // "order_id": data.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        "callback_url": "http://localhost:8000/userapp/payment/paymentVerify",
+        "callback_url": `${process.env.NEXT_PUBLIC_HOST}/userapp/payment/paymentVerify`,
         "prefill": {
             "name":  user.email,
             "email": user.email,
