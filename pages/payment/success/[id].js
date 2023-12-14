@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../../../src/redux/slice/auth';
+// import { getUser } from '../../../src/redux/slice/auth';
+
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Orderlist, updateOrder } from '../../../src/redux/slices/Order';
 import { Cartlist } from '../../../src/redux/slices/Cart';
+import { getUser } from '../../../src/redux/slices/Auth';
 
 function Payment() {
 
