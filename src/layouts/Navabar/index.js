@@ -64,8 +64,8 @@ const handleQuery = (query) => {
   setFilter({"category":query})
 }
   return (
-    <div class=''>
-    <div className="my-4 mb-[127px] ">
+    <div class='bg-white'>
+    <div className="my-4 bg-white mb-[127px] ">
       <Dialog open={dilogOpen}>
         <Login setDilogOpen={setDilogOpen} />
       </Dialog>
@@ -92,25 +92,25 @@ const handleQuery = (query) => {
                 className="border-cyan-500 w-96  h-10 border-2 max-md:hidden outline-1 px-2 py-3"
               />
               <SearchIcon
-                sx={{ position: "absolute",  top: "8px", right: "10px " }}
+                sx={{ position: "absolute",  color: "black", top: "8px", right: "10px " }}
               />
             </div>
             <p className="px-3 py-3">
-              <FavoriteBorderOutlinedIcon sx={{ fontSize: "30px" }} />
+              <FavoriteBorderOutlinedIcon sx={{ fontSize: "30px", color: "black" }} />
             </p>
            {auth?.email  ?  (<p className="px-2 py-3 w-10 h-10 flex justify-center items-center text-lg font-bold bg-red-400 uppercase rounded-full">
               {auth?.email?.slice(0,1)}
             </p>) : 
              (<p className="px-2 py-3">
              <PermIdentityOutlinedIcon
-               sx={{ fontSize: "30px" }}
+               sx={{ fontSize: "30px", color: "black" }}
                onClick={handleClick}
              />
            </p>)
             }
             <p className="px-2 py-3">
             <Badge badgeContent={cartItem.length} color="secondary">
-              <ShoppingBagOutlinedIcon sx={{ fontSize: "30px" }} />
+              <ShoppingBagOutlinedIcon sx={{ fontSize: "30px", color: "black" }} />
             </Badge>
             </p>
           </div>
@@ -132,7 +132,7 @@ const handleQuery = (query) => {
           <li onClick={()=>handleQuery('Bags')} className="mx-6 cursor-pointer text-black max-md:text-xs text-sm font-bold max-lg:mx-1">
             BAGS
           </li>
-          <li onClick={()=>handleQuery('Sale')} className="mx-6  cursor-pointer text-sm font-bold max-lg:mx-2">BRAND</li>
+          <li onClick={()=>handleQuery('Sale')} className="mx-6  cursor-pointer text-sm text-black font-bold max-lg:mx-2">BRAND</li>
           <li className="mx-6 max-md:text-xs text-sm text-black font-bold max-lg:mx-2">
             SALE
           </li>
