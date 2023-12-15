@@ -65,7 +65,7 @@ const handleQuery = (query) => {
 }
   return (
     <div class=''>
-    <div className="my-4 mb-[127px] bg-white ">
+    <div className="my-4 mb-[127px] ">
       <Dialog open={dilogOpen}>
         <Login setDilogOpen={setDilogOpen} />
       </Dialog>
@@ -73,7 +73,7 @@ const handleQuery = (query) => {
         <MenuItems />
       </Drawer>
       <AppBar className="fixed top-0 bg-white text-black  w-full z-10">
-        <div className="flex mt-4 mx-4 justify-between">
+        <div className="flex mt-4 mx-4 bg-white justify-between">
           <div className="flex justify-start items-center  ">
             <MenuIcon className="md:hidden" onClick={() => setOpen(true)} />
             <img
