@@ -65,7 +65,7 @@ const handleQuery = (query) => {
 }
   return (
     <div class=''>
-    <div className="my-4 mb-[127px] ">
+    <div className="my-4 mb-[127px] bg-white ">
       <Dialog open={dilogOpen}>
         <Login setDilogOpen={setDilogOpen} />
       </Dialog>
@@ -116,27 +116,27 @@ const handleQuery = (query) => {
           </div>
         </div>
 
-        <ul className="flex max-sm:hidden justify-center  my-2 text-xs font-bold">
-          <li  onClick={()=>handleQuery('Men')} className="mx-6 cursor-pointer max-md:text-xs text-sm font-bold max-lg:mx-1">
+        <ul className="flex max-sm:hidden justify-center bg-white  my-2 text-xs font-bold">
+          <li  onClick={()=>handleQuery('Men')} className="mx-6 cursor-pointer max-md:text-xs text-black text-sm font-bold max-lg:mx-1">
             MEN
           </li>
-          <li onClick={()=>handleQuery('Women')}className="mx-6  cursor-pointer max-md:text-xs  text-sm font-bold max-lg:mx-1">
+          <li onClick={()=>handleQuery('Women')}className="mx-6  cursor-pointer max-md:text-xs text-black  text-sm font-bold max-lg:mx-1">
             WOMEN
           </li>
-          <li onClick={()=>handleQuery('Kids')} className="mx-6 cursor-pointer max-md:text-xs text-sm font-bold max-lg:mx-1">
+          <li onClick={()=>handleQuery('Kids')} className="mx-6 cursor-pointer max-md:text-xs text-black text-sm font-bold max-lg:mx-1">
             KIDS
           </li>
-          <li onClick={()=>handleQuery('Accessories')} className="mx-6 cursor-pointer max-md:text-xs text-sm font-bold max-lg:mx-1">
+          <li onClick={()=>handleQuery('Accessories')} className="mx-6 cursor-pointer text-black max-md:text-xs text-sm font-bold max-lg:mx-1">
             ACCESSORIES
           </li>
-          <li onClick={()=>handleQuery('Bags')} className="mx-6 cursor-pointer max-md:text-xs text-sm font-bold max-lg:mx-1">
+          <li onClick={()=>handleQuery('Bags')} className="mx-6 cursor-pointer text-black max-md:text-xs text-sm font-bold max-lg:mx-1">
             BAGS
           </li>
           <li onClick={()=>handleQuery('Sale')} className="mx-6  cursor-pointer text-sm font-bold max-lg:mx-2">BRAND</li>
-          <li className="mx-6 max-md:text-xs text-sm text-red-600 font-bold max-lg:mx-2">
+          <li className="mx-6 max-md:text-xs text-sm text-black font-bold max-lg:mx-2">
             SALE
           </li>
-          <li onClick={()=>handleQuery('Fila')} className="mx-6 cursor-pointer text-sm max-md:text-xs font-bold max-lg:mx-2">
+          <li onClick={()=>handleQuery('Fila')} className="mx-6 cursor-pointer text-black text-sm max-md:text-xs font-bold max-lg:mx-2">
             FILA
           </li>
         </ul>
