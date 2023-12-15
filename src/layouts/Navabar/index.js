@@ -82,7 +82,7 @@ const handleQuery = (query) => {
               className="w-full max-md:w-36 max-md:h-9 h-16 my-1"
             />
           </div>
-          <div className="flex  items-center  ">
+          <div className="flex  items-center   ">
             <div className="relative text-sm  max-md:hidden">
               <input
                 type="search"
@@ -92,7 +92,7 @@ const handleQuery = (query) => {
                 className="border-cyan-500 w-96  h-10 border-2 max-md:hidden outline-1 px-2 py-3"
               />
               <SearchIcon
-                sx={{ position: "absolute", top: "8px", right: "10px " }}
+                sx={{ position: "absolute",  top: "8px", right: "10px " }}
               />
             </div>
             <p className="px-3 py-3">
