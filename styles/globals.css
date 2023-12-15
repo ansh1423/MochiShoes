@@ -13,6 +13,9 @@ body{
   
     font-family: 'Mulish', sans-serif;
 }
+.bg-whitee{
+    background-color: white !important;
+  }
 a {
     color: #000;
     position: relative;

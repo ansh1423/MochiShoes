@@ -72,7 +72,7 @@ const handleQuery = (query) => {
       <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
         <MenuItems />
       </Drawer>
-      <AppBar className="fixed top-0 bg-white text-black  w-full z-10">
+      <AppBar className="fixed top-0 bg-whitee text-black  w-full z-10">
         <div className="flex mt-4 mx-4 bg-white justify-between">
           <div className="flex justify-start items-center  ">
             <MenuIcon className="md:hidden" onClick={() => setOpen(true)} />
@@ -117,13 +117,13 @@ const handleQuery = (query) => {
         </div>
 
         <ul className="flex max-sm:hidden justify-center bg-white  my-2 text-xs font-bold">
-          <li  onClick={()=>handleQuery('Men')} className="mx-6 cursor-pointer max-md:text-xs text-black text-sm font-bold max-lg:mx-1">
+          <li  onClick={()=>handleQuery('Men')} className="mx-6 cursor-pointer max-md:text-xs bg-red text-black text-sm font-bold max-lg:mx-1">
             MEN
           </li>
-          <li onClick={()=>handleQuery('Women')}className="mx-6  cursor-pointer max-md:text-xs text-black  text-sm font-bold max-lg:mx-1">
+          <li onClick={()=>handleQuery('Women')}className="mx-6  cursor-pointer bg-white max-md:text-xs text-black  bg-red text-sm font-bold max-lg:mx-1">
             WOMEN
           </li>
-          <li onClick={()=>handleQuery('Kids')} className="mx-6 cursor-pointer max-md:text-xs text-black text-sm font-bold max-lg:mx-1">
+          <li onClick={()=>handleQuery('Kids')} className="mx-6 cursor-pointer max-md:text-xs text-black bg-red text-sm font-bold max-lg:mx-1">
             KIDS
           </li>
           <li onClick={()=>handleQuery('Accessories')} className="mx-6 cursor-pointer text-black max-md:text-xs text-sm font-bold max-lg:mx-1">
