@@ -37,7 +37,9 @@ const SignUp = () => {
       action.resetForm();
     },
   });
-  
+   const handlelogin = () =>{
+    router.push("/login")
+   }
   return (
     <div className="flex justify-center h-screen bg-rose-200     items-center">
     <Box sx={{ width: "30%", display: "flex", justifyContent: "center" }}>
@@ -108,7 +110,7 @@ const SignUp = () => {
            <button className="bg-teal-400 rounded-md mt-2 mb-1 text-white text-sm py-2 px-2" onSubmit={handleSubmit}>Submit</button>
            <div className="flex gap-2 mb-2 text-center justify-center ">
              <h1>Already have account ? </h1>
-             <h2 className="cursor-pointer o hover:underline" >Login Now</h2>
+             <h2 onClick={handlelogin} className="cursor-pointer o hover:underline" >Login Now</h2>
            </div>
         </form>
       </Box>

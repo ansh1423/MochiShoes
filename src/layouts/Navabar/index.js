@@ -23,14 +23,15 @@ import Login from "../../components/auth/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../redux/slices/Auth";
 import { useRouter } from "next/router";
-import { addProduct, getProduct } from "../../redux/slices/Product";
+import { listProduct, getProduct } from "../../redux/slices/Product";
 
-const Index = ({setQuery}) => {
+const Index = () => {
   const router = useRouter()
   const dispatch=useDispatch();
   const auth = useSelector((state)=> state.user.user)
   const [filter,setFilter] = useState()
-  
+  // const [searchinput,setSearchInput] = useState();
+  const [query,setQuery] = useState();
   useEffect(()=>{
    const getUserData = async()=>{
     await dispatch(getUser())
@@ -47,15 +48,22 @@ const Index = ({setQuery}) => {
 console.log(cartItem);
 
 const fetchProducts = async(state) => {
-   let result = await dispatch(addProduct(filter))
+   let result = await dispatch(listProduct(query))
    if(result){
-    return true
+    console.log(result.data, "filter list");
+   }
+   else{
+    console.log("something went wrong")
    }
 }
+// const filterProducts = async(state)=>{
+//   let result = await 
+// }
 
 useEffect(()=>{
+
   fetchProducts()
-},[filter])
+},[query])
 
 const handleQuery = (query) => {
   console.log(query)
@@ -63,9 +71,23 @@ const handleQuery = (query) => {
    setQuery(query)
   setFilter({"category":query})
 }
+const handleChangeSearchBar = (event) => {
+    event.persist()
+   
+   setQuery(event.target.value);
+  //  setFilter(event.target.value)
+  console.log("handleChangeSearchBar", event.target.value);
+};
+console.log(query,"searchQuery");
+const handleKeyDown = (event) => {
+  if (event.key === 'Enter') {
+    router.push(`/products/search?query=${query}`);
+  }
+};
+
   return (
     <div class='bg-white'>
-    <div className="my-4 bg-white mb-[127px] ">
+    <div className="my-4 bg-white mb-[110px] ">
       <Dialog open={dilogOpen}>
         <Login setDilogOpen={setDilogOpen} />
       </Dialog>
@@ -83,16 +105,21 @@ const handleQuery = (query) => {
             />
           </div>
           <div className="flex  items-center   ">
-            <div className="relative text-sm  max-md:hidden">
+            <div className="relative text-[15px]  max-md:hidden">
               <input
                 type="search"
-                name=""
-                id=""
-                placeholder="Search for Men Footwear, Women Footwear & more..."
+                name="search"
+                id="search"
+                onKeyDown={handleKeyDown}
+                 onChange={handleChangeSearchBar}
+                //  onBlur={handleBlurSearchBar}
+                placeholder="What are you looking for....."
                 className="border-cyan-500 w-96  h-10 border-2 max-md:hidden outline-1 px-2 py-3"
               />
               <SearchIcon
-                sx={{ position: "absolute",  color: "black", top: "8px", right: "10px " }}
+                sx={{ position: "absolute",  color: "cyan", top: "8px", right: "30px " }}
+// 
+               onClick={handleQuery}
               />
             </div>
             <p className="px-3 py-3">
@@ -116,27 +143,27 @@ const handleQuery = (query) => {
           </div>
         </div>
 
-        <ul className="flex max-sm:hidden justify-center bg-white  my-2 text-xs font-bold">
-          <li  onClick={()=>handleQuery('Men')} className="mx-6 cursor-pointer max-md:text-xs bg-red text-black text-sm font-bold max-lg:mx-1">
+        <ul className="flex max-sm:hidden justify-center bg-white  mb-1 text-[15px] font-bold">
+          <li  onClick={()=>handleQuery('Men')} className="mx-6 cursor-pointer max-md:text-xs bg-red text-black text-[15px] font-bold max-lg:mx-1">
             MEN
           </li>
-          <li onClick={()=>handleQuery('Women')}className="mx-6  cursor-pointer bg-white max-md:text-xs text-black  bg-red text-sm font-bold max-lg:mx-1">
+          <li onClick={()=>handleQuery('Women')}className="mx-6  cursor-pointer bg-white max-md:text-xs text-black  bg-red text-[15px] font-bold max-lg:mx-1">
             WOMEN
           </li>
-          <li onClick={()=>handleQuery('Kids')} className="mx-6 cursor-pointer max-md:text-xs text-black bg-red text-sm font-bold max-lg:mx-1">
+          <li onClick={()=>handleQuery('Kids')} className="mx-6 cursor-pointer max-md:text-xs text-black bg-red text-[15px] font-bold max-lg:mx-1">
             KIDS
           </li>
-          <li onClick={()=>handleQuery('Accessories')} className="mx-6 cursor-pointer text-black max-md:text-xs text-sm font-bold max-lg:mx-1">
+          <li onClick={()=>handleQuery('Accessories')} className="mx-6 cursor-pointer text-black max-md:text-xs text-[15px] font-bold max-lg:mx-1">
             ACCESSORIES
           </li>
-          <li onClick={()=>handleQuery('Bags')} className="mx-6 cursor-pointer text-black max-md:text-xs text-sm font-bold max-lg:mx-1">
+          <li onClick={()=>handleQuery('Bags')} className="mx-6 cursor-pointer text-black max-md:text-xs text-[15px] font-bold max-lg:mx-1">
             BAGS
           </li>
-          <li onClick={()=>handleQuery('Sale')} className="mx-6  cursor-pointer text-sm text-black font-bold max-lg:mx-2">BRAND</li>
-          <li className="mx-6 max-md:text-xs text-sm text-black font-bold max-lg:mx-2">
+          <li onClick={()=>handleQuery('Sale')} className="mx-6  cursor-pointer text-[15px] text-black font-bold max-lg:mx-2">BRAND</li>
+          <li className="mx-6 max-md:text-xs text-[15px] text-black font-bold max-lg:mx-2">
             SALE
           </li>
-          <li onClick={()=>handleQuery('Fila')} className="mx-6 cursor-pointer text-black text-sm max-md:text-xs font-bold max-lg:mx-2">
+          <li onClick={()=>handleQuery('Fila')} className="mx-6 cursor-pointer text-black text-[15px] max-md:text-xs font-bold max-lg:mx-2">
             FILA
           </li>
         </ul>

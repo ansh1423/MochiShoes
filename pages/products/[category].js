@@ -6,7 +6,7 @@ import Block3 from '../../src/contents/products/Block3'
 
 import Footer from '../../src/layouts/Footer'
 import { useDispatch, useSelector } from 'react-redux'
-import { addProduct, getProduct } from '../../src/redux/slices/Product'
+import { listProduct, getProduct } from '../../src/redux/slices/Product'
 import Block4 from '../../src/contents/products/Block4'
 import { useRouter } from 'next/router'
 
@@ -20,7 +20,7 @@ function Index() {
   
   useEffect(() => {
   const getProduct= async () => {
-  const result = await dispatch(addProduct(filter));
+  const result = await dispatch(listProduct(filter));
 
    console.log(result)
   }

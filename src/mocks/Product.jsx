@@ -1,5 +1,5 @@
 import axios from "axios";
-import { addProduct, updateProduct } from "../redux/slices/Product";
+import { listProduct, updateProduct } from "../redux/slices/Product";
 
 class ProductApi{
 
@@ -36,42 +36,79 @@ async updateProduct(data){
      else
       return false;
   } 
-async addProduct (filter,page){
-    const data=
-        {
-            "query":filter,
-            "options": {
-              "collation": "",
-              "sort": {"name":1},
-              "populate": "",
-              "projection": "",
-              "lean": false,
-              "leanWithId": true,
-              "page": page,
-              "limit": 20,
-              "pagination": true,
-              "useEstimatedCount": false,
-              "useCustomCountFn": false,
-              "forceCountFn": false,
-              "read": {},
-              "options": {}
-            },
-            "isCountOnly": false
-          }
-          console.log("data from product");
-          const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/userapp/product/list`,data,{
-         
-           method: "post",
-          
-         });
-         console.log("data from product",response)
-          if(response.data.status==='SUCCESS'){
-          console.log(response)
-          return response.data;
-          }
-          else
-           return false;
-       } 
-    }     
+  
+  async  listProduct(filter) {
+    let data;
+  
+     if (typeof filter !== 'undefined') {
+      data = {
+        query: {
+          $or: [
+            { "title.shortTitle": { "$regex": filter, "$options": "i" } },
+            { "title.longTitle": { "$regex": filter, "$options": "i" } },
+            { "category": { "$regex": filter, "$options": "i" } },
+            { "subCategory": { "$regex": filter, "$options": "i" } }
+          ]
+        },
+        options: {
+          collation: "",
+          sort: { "name": 1 },
+          populate: "",
+          projection: "",
+          lean: false,
+          leanWithId: true,
+          page: 1,
+          limit: 20,
+          pagination: true,
+          useEstimatedCount: false,
+          useCustomCountFn: false,
+          forceCountFn: false,
+          read: {},
+          options: {}
+        },
+        isCountOnly: false
+      };
+    } else {
+      data = {
+        query: {},
+        options: {
+          collation: "",
+          sort: { "name": 1 },
+          populate: "",
+          projection: "",
+          lean: false,
+          leanWithId: true,
+          page: 1,
+          limit: 20,
+          pagination: true,
+          useEstimatedCount: false,
+          useCustomCountFn: false,
+          forceCountFn: false,
+          read: {},
+          options: {}
+        },
+        isCountOnly: false
+      };
+    }
+  
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/userapp/product/list`, data, {
+        method: "post",
+      });
+  
+      if (response.data.status === 'SUCCESS') {
+        console.log(response.data, "responsedata");
+        return response.data;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      return false;
+    }
+  }
+    
+
+  }     
      
     export const productApi = new ProductApi();

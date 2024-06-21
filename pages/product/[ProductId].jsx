@@ -8,7 +8,7 @@ import Block6 from '../../src/contents/product/Block6/Block6'
 import Footer from '../../src/layouts/Footer'
 import { Products } from '../../src/constants/home/Products'
 import { useDispatch, useSelector } from 'react-redux'
-import { addProduct } from '../../src/redux/slices/Product'
+import { listProduct } from '../../src/redux/slices/Product'
 export default function Index() {
   const dispatch=useDispatch();
   const  data=useSelector((state)=>{state.product.product});
@@ -17,7 +17,7 @@ export default function Index() {
   useEffect(() => {
     const getProduct= async () => {
     
-    const result = await dispatch(addProduct());
+    const result = await dispatch(listProduct());
   
      console.log(result)
     }

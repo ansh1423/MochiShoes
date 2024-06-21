@@ -78,7 +78,7 @@ function Block3 (){
           );
         },
         dots: true,
-        dotsClass: "",
+        dotsclass: "",
         infinite: true,
         autoPlay:true,
         autoPlaySpeed:2000,

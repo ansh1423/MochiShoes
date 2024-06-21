@@ -17,6 +17,7 @@ import {auth,provider} from '../googleSignin/config'
 
 
 const Login = ({ setDilogOpen }) => {
+
   
   const router = useRouter();
   const dispatch = useDispatch();
@@ -30,9 +31,10 @@ const Login = ({ setDilogOpen }) => {
      signIn('google', {callbackUrl:"http://localhost:3000"})
   }
 
-  const handleClear = () => {
+   const handleClear = () => {
     setDilogOpen(false);
   };
+
   const initialValue = {
     username: "",
     password: "",

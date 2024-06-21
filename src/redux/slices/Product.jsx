@@ -18,7 +18,7 @@ const slice =createSlice({
         deleteProduct(state,action){
             state.product=[]
         },
-        addProduct(state,action){
+        listProduct(state,action){
             state.product=action.payload.data;
         }
 
@@ -60,11 +60,11 @@ export const deleteProduct= () =>async (dispatch)=>{
   }  
 }
 
-export const addProduct = (filter,page) => async (dispatch)=>{
-    const result =await productApi.addProduct(filter,page);
+export const listProduct = (query) => async (dispatch)=>{
+    const result =await productApi.listProduct(query);
     console.log(result)
     if(result){
-        await dispatch(slice.actions.addProduct(result.data));
+        await dispatch(slice.actions.listProduct(result));
         return true;
     }
     return false;

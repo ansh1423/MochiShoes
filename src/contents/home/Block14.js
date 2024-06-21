@@ -3,7 +3,7 @@ import React from 'react'
 function Block14() {
   return (
     <>
-    <div className='px-4 mx-4 mb-5'>
+    <div className='px-4 mx-4 max-sm:px-2 max-sm:mx-2 mb-5'>
     <h2 className=' max-lg:text-center  text-lg font-Bebas-Neue py-2   '>Which brand is best for shoes in India?</h2>
   <p  className='text-sm font-normal px-4 '>If you are looking for the best types of shoes available for men, women, and kids online in India, look no further than Mochi. With a stunning range of extensive catalogue for footwear for women, men, and kids. Our industry experts make sure the design, hues, and style the shoes are available in are timeless, durable, and reliable. As much as we hold style as our priority, we also hold our customers' comfort as the essential priority too.
   

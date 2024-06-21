@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Shoesimage } from './Block4/Shoesimage';
 import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp';
 import { useRouter } from 'next/router';
-import { addProduct, getProduct } from '../../redux/slices/Product';
+import { listProduct, getProduct } from '../../redux/slices/Product';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const SliderContainer = styled('div')({
@@ -104,7 +104,7 @@ const Block4 = ({data}) => {
   // const fetchDataFromAPI = async (pageNum) => {
   //   try {
   //     setLoading(true);
-  //     const response = await dispatch(addProduct({}, pageNum));
+  //     const response = await dispatch(listProduct({}, pageNum));
   //     console.log(responce)
   //     setDatas((prevData) => [...prevData,...response]);
   //     setPage((prevPage) => prevPage + 1);

@@ -70,7 +70,7 @@ const SliderItem = ({ posterLinks }) => {
       <SliderContainer>
         <ImageContainer>
           <Box sx={{ width: '100%',  }}>
-            <Image src={posterLinks.image} alt="divineyogpeeth yoga" />
+            <Image src={posterLinks.image} alt="Invalid Image" />
           </Box>
           {/* <Box sx={{ position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: { xs: '350px', sm: '400px', md: '500px' }, flexDirection: 'column' }}>
             <Typography sx={{ color: 'white', fontSize: { xs: '20px', sm: '23px', md: '25px' }, }}>With Divine Yogpeeth</Typography>

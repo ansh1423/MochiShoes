@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 // import { useDispatch, useSelector } from 'react-redux';
-// import { addProduct, getProduct } from '../../redux/slices/Product';
+// import { listProduct, getProduct } from '../../redux/slices/Product';
 // import { useRouter } from 'next/router';
 import {
   Accordion,
