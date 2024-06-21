@@ -19,7 +19,7 @@ const SliderContainer = styled("div")({
   },
   "@media (max-width: 600px)": {
     width: "100%",
-    height: "350px",
+    height: "150px",
   },
 
 })
@@ -36,7 +36,7 @@ const ImageContainer = styled("div")({
   },
   "@media (max-width: 600px)": {
     width: "100%",
-    height: "600px",
+    height: "0px",
   },
 
 })
@@ -53,8 +53,8 @@ const Image = styled("img")({
   },
 
   "@media (max-width: 600px)": {
-    width: '100%',
-    height: '350px',
+    width: 'auto%',
+    height: 'auto',
 
   },
 

@@ -1,174 +1,205 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
-import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import MenuIcon from "@mui/icons-material/Menu";
-import Drawer from "@mui/material/Drawer";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  AppBar,
-  Badge,
-  Dialog,
-  Typography,
-} from "@mui/material";
-import MenuItems from "./MenuItems/index";
-import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
-import Login from "../../components/auth/Login";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../redux/slices/Auth";
 import { useRouter } from "next/router";
-import { listProduct, getProduct } from "../../redux/slices/Product";
+import PropTypes from "prop-types";
+import { AppBar, Avatar, Badge, Box, Button, Dialog, Drawer, IconButton, Popover, Stack, Typography } from "@mui/material";
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import MenuIcon from "@mui/icons-material/Menu";
+import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
+import SearchIcon from "@mui/icons-material/Search";
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import MenuItems from "./MenuItems/index";
+import Login from "../../components/auth/Login";
+import { getUser, logoutUser } from "../../redux/slices/Auth";
+import { listProduct } from "../../redux/slices/Product";
 
 const Index = () => {
-  const router = useRouter()
-  const dispatch=useDispatch();
-  const auth = useSelector((state)=> state.user.user)
-  const [filter,setFilter] = useState()
-  // const [searchinput,setSearchInput] = useState();
-  const [query,setQuery] = useState();
-  useEffect(()=>{
-   const getUserData = async()=>{
-    await dispatch(getUser())
-   }
-   getUserData();
- 
-  }, [])
-  const [open, setOpen] = useState(false);
-  const [dilogOpen, setDilogOpen] = useState(false);
-  const handleClick = () => {
-    setDilogOpen(true);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.user.user);
+  const cartItem = useSelector((state) => state.cart.cart);
+
+  const [filter, setFilter] = useState();
+  const [query, setQuery] = useState();
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (query) {
+      fetchProducts();
+    }
+  }, [query]);
+
+  const fetchProducts = async () => {
+    try {
+      const result = await dispatch(listProduct(query));
+      if (result) {
+        console.log(result.data, "filter list");
+      }
+    } catch (error) {
+      console.error("Something went wrong", error);
+    }
   };
-  const cartItem =useSelector((state)=>state?.cart?.cart)
-console.log(cartItem);
 
-const fetchProducts = async(state) => {
-   let result = await dispatch(listProduct(query))
-   if(result){
-    console.log(result.data, "filter list");
-   }
-   else{
-    console.log("something went wrong")
-   }
-}
-// const filterProducts = async(state)=>{
-//   let result = await 
-// }
+  const handleQuery = (query) => {
+    router.push(`/products/${query}`);
+    setQuery(query);
+    setFilter({ category: query });
+  };
 
-useEffect(()=>{
+  const handleChangeSearchBar = (event) => {
+    setQuery(event.target.value);
+  };
 
-  fetchProducts()
-},[query])
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      router.push(`/products/search?query=${query}`);
+    }
+  };
 
-const handleQuery = (query) => {
-  console.log(query)
-  router.push(`/products/${query}`)
-   setQuery(query)
-  setFilter({"category":query})
-}
-const handleChangeSearchBar = (event) => {
-    event.persist()
+  const handleClick = () => {
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const handleFavoriteClick = () => {
+    setIsClicked(!isClicked);
+  };
+
+  const handleClicks = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClosePopover = () => {
+    setAnchorEl(null);
+  };
+
+  const popoverOpen = Boolean(anchorEl);
+  const popoverId = popoverOpen ? 'simple-popover' : undefined;
+  //Logout
    
-   setQuery(event.target.value);
-  //  setFilter(event.target.value)
-  console.log("handleChangeSearchBar", event.target.value);
-};
-console.log(query,"searchQuery");
-const handleKeyDown = (event) => {
-  if (event.key === 'Enter') {
-    router.push(`/products/search?query=${query}`);
+  const handleLogout = () =>{
+    dispatch(logoutUser()); // Dispatch an action to log out the user
+    setAnchorEl(null)
   }
-};
 
   return (
-    <div class='bg-white'>
-    <div className="my-4 bg-white mb-[110px] ">
-      <Dialog open={dilogOpen}>
-        <Login setDilogOpen={setDilogOpen} />
-      </Dialog>
-      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-        <MenuItems />
-      </Drawer>
-      <AppBar className="fixed top-0 bg-whitee text-black  w-full z-10">
-        <div className="flex mt-4 mx-4 bg-white justify-between">
-          <div className="flex justify-start items-center  ">
-            <MenuIcon className="md:hidden" onClick={() => setOpen(true)} />
-            <img
-              src="https://www.mochishoes.com/images-mochi/mochi-logo.webp"
-              alt=""
-              className="w-full max-md:w-36 max-md:h-9 h-16 my-1"
-            />
-          </div>
-          <div className="flex  items-center   ">
-            <div className="relative text-[15px]  max-md:hidden">
-              <input
-                type="search"
-                name="search"
-                id="search"
-                onKeyDown={handleKeyDown}
-                 onChange={handleChangeSearchBar}
-                //  onBlur={handleBlurSearchBar}
-                placeholder="What are you looking for....."
-                className="border-cyan-500 w-96  h-10 border-2 max-md:hidden outline-1 px-2 py-3"
-              />
-              <SearchIcon
-                sx={{ position: "absolute",  color: "cyan", top: "8px", right: "30px " }}
-// 
-               onClick={handleQuery}
+    <div className="bg-white">
+      <div className="my-4 max-sm:my-0 bg-white mb-[60px] max-sm:mb-[20px]">
+        <Button onClick={handleClick}>Open Login Dialog</Button>
+        <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+          <Login setDilogOpen={setDialogOpen} />
+        </Dialog>
+
+        <Drawer anchor="left" open={openDrawer} onClose={() => setOpenDrawer(false)}>
+          <MenuItems />
+        </Drawer>
+        <AppBar className="fixed top-0 bg-white text-black w-full z-10">
+          <div className="flex mt-4 mx-4 bg-white justify-between">
+            <div className="flex justify-start items-center">
+              <MenuIcon className="md:hidden" onClick={() => setOpenDrawer(true)} />
+              <img
+                src="https://www.mochishoes.com/images-mochi/mochi-logo.webp"
+                alt="Mochi Logo"
+                className="w-full max-md:w-28 max-md:h-9 h-16 my-1"
               />
             </div>
-            <p className="px-3 py-3">
-              <FavoriteBorderOutlinedIcon sx={{ fontSize: "30px", color: "black" }} />
-            </p>
-           {auth?.email  ?  (<p className="px-2 py-3 w-10 h-10 flex justify-center items-center text-lg font-bold bg-red-400 uppercase rounded-full">
-              {auth?.email?.slice(0,1)}
-            </p>) : 
-             (<p className="px-2 py-3">
-             <PermIdentityOutlinedIcon
-               sx={{ fontSize: "30px", color: "black" }}
-               onClick={handleClick}
-             />
-           </p>)
-            }
-            <p className="px-2 py-3">
-            <Badge badgeContent={cartItem.length} color="secondary">
-              <ShoppingBagOutlinedIcon sx={{ fontSize: "30px", color: "black" }} />
-            </Badge>
-            </p>
+            <div className="flex items-center">
+              <div className="relative text-[15px] max-md:hidden">
+                <input
+                  type="search"
+                  name="search"
+                  id="search"
+                  onKeyDown={handleKeyDown}
+                  onChange={handleChangeSearchBar}
+                  placeholder="What are you looking for....."
+                  className="border-cyan-500 w-96 h-10 border-2 max-md:hidden outline-1 px-2 py-3"
+                />
+                <SearchIcon
+                  sx={{ position: "absolute", color: "cyan", top: "8px", right: "30px" }}
+                  onClick={() => handleQuery(query)}
+                />
+              </div>
+              <IconButton onClick={handleFavoriteClick} sx={{ backgroundColor: isClicked ? "red" : "transparent", "&:hover": { backgroundColor: isClicked ? "darkred" : "lightgray" } }}>
+                <FavoriteBorderOutlinedIcon sx={{ fontSize: "30px", color: "black" }} />
+              </IconButton>
+              <Box>
+                {auth?.email ? (
+                  <Stack direction="row" spacing={2}>
+                    <Avatar
+                      alt="User Avatar"
+                      src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg?size=626&ext=jpg"
+                      sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                      onClick={handleClicks}
+                    />
+                  </Stack>
+                ) : (
+                  <PermIdentityOutlinedIcon
+                    sx={{ fontSize: "30px", color: "black", cursor: 'pointer' }}
+                    onClick={handleClick}
+                  />
+                )}
+                <Popover
+                  id={popoverId}
+                  open={popoverOpen}
+                  anchorEl={anchorEl}
+                  onClose={handleClosePopover}
+                  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                  transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                >
+                  <Box sx={{ p: 2, minWidth: 100 }}>
+                    <Stack direction="column" alignItems="center" spacing={2}>
+                      <Avatar
+                        alt="User Avatar"
+                        src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg?size=626&ext=jpg"
+                        sx={{ width: 60, height: 60 }}
+                      />
+                      <Typography variant="h6">{auth?.email}</Typography>
+                      <Button 
+                       sx={{
+                        '&:hover': {
+                          backgroundColor: '#f50057',
+                          color: 'white',
+                        },
+                      }} color="primary" onClick={() => alert('Profile clicked')}>
+                        Profile
+                      </Button>
+                      <Button  color="secondary" sx={{
+        '&:hover': {
+          backgroundColor: '#f50057',
+          color: 'white',
+        },
+      }} onClick={handleLogout}>
+                        Logout
+                      </Button>
+                    </Stack>
+                  </Box>
+                </Popover>
+              </Box>
+              <Badge badgeContent={cartItem.length} color="secondary">
+                <ShoppingBagOutlinedIcon sx={{ fontSize: "30px", color: "black" }} />
+              </Badge>
+            </div>
           </div>
-        </div>
 
-        <ul className="flex max-sm:hidden justify-center bg-white  mb-1 text-[15px] font-bold">
-          <li  onClick={()=>handleQuery('Men')} className="mx-6 cursor-pointer max-md:text-xs bg-red text-black text-[15px] font-bold max-lg:mx-1">
-            MEN
-          </li>
-          <li onClick={()=>handleQuery('Women')}className="mx-6  cursor-pointer bg-white max-md:text-xs text-black  bg-red text-[15px] font-bold max-lg:mx-1">
-            WOMEN
-          </li>
-          <li onClick={()=>handleQuery('Kids')} className="mx-6 cursor-pointer max-md:text-xs text-black bg-red text-[15px] font-bold max-lg:mx-1">
-            KIDS
-          </li>
-          <li onClick={()=>handleQuery('Accessories')} className="mx-6 cursor-pointer text-black max-md:text-xs text-[15px] font-bold max-lg:mx-1">
-            ACCESSORIES
-          </li>
-          <li onClick={()=>handleQuery('Bags')} className="mx-6 cursor-pointer text-black max-md:text-xs text-[15px] font-bold max-lg:mx-1">
-            BAGS
-          </li>
-          <li onClick={()=>handleQuery('Sale')} className="mx-6  cursor-pointer text-[15px] text-black font-bold max-lg:mx-2">BRAND</li>
-          <li className="mx-6 max-md:text-xs text-[15px] text-black font-bold max-lg:mx-2">
-            SALE
-          </li>
-          <li onClick={()=>handleQuery('Fila')} className="mx-6 cursor-pointer text-black text-[15px] max-md:text-xs font-bold max-lg:mx-2">
-            FILA
-          </li>
-        </ul>
-      </AppBar>
-    </div>
+          <ul className="flex max-sm:hidden justify-center bg-white mb-1 text-[15px] font-bold">
+            {['Men', 'Women', 'Kids', 'Accessories', 'Bags', 'Brand', 'Sale', 'Fila'].map((category) => (
+              <li key={category} onClick={() => handleQuery(category)} className="mx-6 cursor-pointer max-md:text-xs text-black text-[15px] font-bold max-lg:mx-1">
+                {category.toUpperCase()}
+              </li>
+            ))}
+          </ul>
+        </AppBar>
+      </div>
     </div>
   );
 };

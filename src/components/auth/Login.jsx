@@ -1,164 +1,156 @@
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
   TextField,
   Typography,
-  useFormControl,
+  IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
-import React from "react";
 import { LoginSchema } from "../../schema/Login";
 import { useRouter } from "next/router";
-import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
-import { login, register } from "../../redux/slices/Auth";
-import {auth,provider} from '../googleSignin/config'
+import { login } from "../../redux/slices/Auth";
+import { signIn } from "next-auth/react";
 
-
-
-const Login = ({ setDilogOpen }) => {
-
-  
+const Login = ({setDilogOpen}) => {
+  console.log(setDilogOpen,'setDilogOpen');
   const router = useRouter();
   const dispatch = useDispatch();
+
   const handleForget = () => {
     router.push("/forget");
   };
+
   const handleRegister = () => {
     router.push("/signup");
   };
-  const handleSubmitgoogle= ()=> {
-     signIn('google', {callbackUrl:"http://localhost:3000"})
-  }
 
-   const handleClear = () => {
+  const handleSubmitGoogle = () => {
+    signIn("google", { callbackUrl: "http://localhost:3000" });
+  };
+
+  const handleClear = () => {
     setDilogOpen(false);
   };
 
-  const initialValue = {
+  const initialValues = {
     username: "",
     password: "",
   };
+  const [loginResult, setLoginResult] = useState(null);
+
 
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
-      initialValues: initialValue,
+      initialValues,
       validationSchema: LoginSchema,
       onSubmit: async (values, action) => {
-        console.log(values);
         const result = await dispatch(login(values));
+        setLoginResult(result); 
         if (result) {
-          alert("LogIn Successfully");
+          alert("Login Successfully");
           router.push("/");
           handleClear();
-         
         }
-
-        console.log(result);
         action.resetForm();
       },
-    }); // console.log(errors)
+    });
+    useEffect(() => {
+      if (loginResult) {
+        window.location.reload(); // Reload the page on successful login
+      }
+    }, [loginResult]);
   
 
   return (
     <>
-    <div className="flex justify-center  bg-rose-200     items-center">
       <Box
-        sx={{ display: "flex", justifyContent: "center", borderRadius: "20px" }}
-      >
-        <Box
-          sx={{
-            width: "400px",
-            gap: "",
-            border: "1px solid black",
-            height: "400px",
-            flexDirection: "column",
-            display: "flex",
-            postition: "relative",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor:"burlywood"
-          }}
+       sx={{
+        width: "400px",
+        p: 4,
+        borderRadius: "20px",
+        boxShadow: 3,
+        backgroundColor: "white",
+        position: "relative",
+        '@media (max-width: 600px)': {
+          width: "300px",
+        },
+      }}
         >
-          <CloseIcon
-            onClick={handleClear}
-            sx={{ position: "absolute", top: "12px", left: "90%" }}
+      
+        <IconButton
+          onClick={handleClear}
+          sx={{ position: "absolute", top: 16, right: 16 }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <Typography variant="h5" align="center" gutterBottom>
+          LOG IN
+        </Typography>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          <TextField
+            label="User Name"
+            name="username"
+            value={values.username}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.username && Boolean(errors.username)}
+            helperText={touched.username && errors.username}
+            fullWidth
           />
-          <Typography className=" text-lg">LOG IN</Typography>
-          <form
-            style={{
-              flexDirection: "column",
-              display: "flex",
-              justifyContent: "",
-              alignItems: "",
-              width: "100%",
-              gap: "",
-              padding: "20px",
-            }}
-            onSubmit={handleSubmit}
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.password && Boolean(errors.password)}
+            helperText={touched.password && errors.password}
+            fullWidth
+          />
+          <Button
+            type="submit"
+            // variant="contained"
+            color="primary"
+            fullWidth
           >
-            <h1 className="text-sm py-1">User Name</h1>
-            <input
-              type="name"
-              name="username"
-              value={values.username}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className="border w-full py-2 text-sm px-2 border-emerald-500"
-            />
-            {errors.username && touched.username && (
-              <div style={{ color: "red" }}>{errors.username}</div>
-            )}
-            <h1 className="text-sm w-full py-1">Password</h1>
-            <input
-              type="password"
-              name="password"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className="border w-full py-2 text-sm px-2 border-emerald-500"
-            />
-            {errors.password && touched.password && (
-              <div style={{ color: "red" }}>{errors.password}</div>
-            )}
-
-            {/* {errors.password && touched.password  && <div style={{color:'red'}}>{errors.password}</div>} */}
-            <Button
-              type="submit"
-              color="primary"
-              className="bg-blue-500 my-8 text-white hover:bg-blue-500"
-               onClick={handleSubmit}
-            >
-              Continue
-            </Button>
-            <Button
-              type="submit"
-              color="primary"
-              className="bg-red-500 my-2 text-white hover:bg-blue-500"
-               onClick={handleSubmitgoogle}
-            >
-              Login With Google
-            </Button>
-            <h1 onClick={handleForget} className="text-center cursor-pointer">
-              Forget Password
-            </h1>
-          </form>
-          <div className="flex gap-2">
-            <Typography>Don't have an Account?  </Typography>
-            <Typography
-              onClick={handleRegister}
-              className="cursor-pointer gap-1  "
-            >
-               Sign Up
-            </Typography>
-          </div>
+            Continue
+          </Button>
+          <Button
+            type="button"
+            // variant="contained"
+            color="secondary"
+            onClick={handleSubmitGoogle}
+            fullWidth
+          >
+            Login With Google
+          </Button>
+          <Typography
+            variant="body2"
+            align="center"
+            sx={{ cursor: "pointer" }}
+            onClick={handleForget}
+          >
+            Forget Password
+          </Typography>
+        </form>
+        <Box mt={2} display="flex" justifyContent="center" alignItems="center">
+          <Typography variant="body2">Don't have an account?&nbsp;</Typography>
+          <Typography
+            variant="body2"
+            color="primary"
+            sx={{ cursor: "pointer" }}
+            onClick={handleRegister}
+          >
+            Sign Up
+          </Typography>
         </Box>
       </Box>
-      </div>
     </>
   );
 };
-
-
 
 export default Login;

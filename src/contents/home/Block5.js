@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 const SliderContainer = styled('div')({
 width:"95%",
 height:"400px",
+
 display:"flex",
 flexDirection:"column",
 margin:"0 0px 0px 0px",
@@ -24,6 +25,18 @@ overflow:"hidden",
 "@media (max-width: 1200px)": {
   width:"95%",
    margin:"1% 1rem"
+ 
+ },
+ "@media (max-width: 1200px)": {
+  width:"95%",
+   margin:"1% 1rem",
+   
+ 
+ },
+ "@media (max-width: 648px)": {
+  width:"95%",
+   margin:"1% 1rem",
+   display:"none",
  
  },
 

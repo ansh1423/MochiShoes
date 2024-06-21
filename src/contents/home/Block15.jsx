@@ -42,8 +42,8 @@ export default function BasicTabs() {
 
   return (
     <>
-      <h1 className='flex text-6xl  mb-5 max-lg:text-3xl max-md:hidden max  pt-16 justify-center font-[200px]' style={{ fontFamily: "'Bebas Neue', sans-serif" }}>SHOP BY CATEGORIES</h1>
-      <div className='flex items-center  justify-center'>
+      <h1 className='grid   max-md:none text-6xl  mb-5 max-lg:text-3xl max-md:hidden max  pt-16 justify-center font-[200px]' style={{ fontFamily: "'Bebas Neue', sans-serif" }}>SHOP BY CATEGORIES</h1>
+      <div className='flex max-md:hidden items-center  justify-center'>
       <Box sx={{ width: '100%' , display:'' , justifyContent:"center" }}>
          <div className='flex justify-center items-center'>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -55,7 +55,7 @@ export default function BasicTabs() {
           </Tabs>
         </Box>
         </div>
-        
+        <div className=''>
         <CustomTabPanel value={value} index={0}>
          <div className='flex items-center justify-center'>
          <div className='flex gap-5 justify-between'>
@@ -216,6 +216,7 @@ export default function BasicTabs() {
       </div>
          </div>
         </CustomTabPanel>
+        </div>
         </Box>
       
       

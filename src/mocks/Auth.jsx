@@ -76,6 +76,15 @@ class AuthApi{
   return false;
    }
 
+   async logoutUser(){
+    const responce = await axios.post(`${process.env.NEXT_PUBLIC_HOST/userapp/auth/logout}`);
+    if(responce.data.status==='SUCCESS'){
+      return responce;
+    }
+    else
+    return false;
+   }
+
    async ResetPass(data){
     const responce = await axios.put(`${process.env.NEXT_PUBLIC_HOST}/userapp/auth/reset-password`,data);
     if(responce.data.status==='SUCCESS')

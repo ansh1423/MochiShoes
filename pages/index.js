@@ -53,25 +53,25 @@ export default function Home() {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet"/>
       </Head>
-            {/* <Navabar/> */}
-             {/* <Block1/>  */}
-             {/* <Block2/>  */}
-             {/* <Block3/> */}
+            <Navabar/>
+             <Block1/> 
+             <Block2/> 
+             <Block3/>
            <Block15/>
-           {/* <Block4/> */}
-           {/* <Block5  sliderData = {Products} /> */}
-           {/* <Block6/> */}
+           <Block4/>
+           <Block5  sliderData = {Products} />
+           <Block6/>
             {/* <Block7/>  */}
             {/* <Block8/> */}
-            {/* <Block9/>  */}
-           {/* <Block10/> */}
-           {/* <Block11/> */}
-           {/* <Block12/> */}
-           {/* <Block13/> */}
-           {/* <Block14/> */}
+            <Block9/> 
+           <Block10/>
+           <Block11/>
+           <Block12/>
+           <Block13/>
+           <Block14/>
 
-            {/* <Footer/>    */}
-           {/* <Footer1/> */}
+            <Footer/>   
+           <Footer1/>
 
          
     </div>

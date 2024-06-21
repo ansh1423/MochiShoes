@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography, IconButton } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
 import { SignUpSchema } from "../../schema";
@@ -8,114 +8,131 @@ import { useRouter } from "next/router";
 import CloseIcon from "@mui/icons-material/Close";
 
 const SignUp = () => {
-  const router  = useRouter();
-  const dispatch = useDispatch()
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  const intialValue = {
+  const initialValues = {
     firstName: "",
     email: "",
     password: "",
     phone: "",
+  };
 
-  };
   const handleClear = () => {
-    router.push("/")
+    router.push("/");
   };
-  const { values,errors,touched, handleChange, handleBlur, handleSubmit } = useFormik({
+
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
     validationSchema: SignUpSchema,
-    initialValues: intialValue,
-    //  console.log(values)
-    onSubmit: async(values, action) => {
-      // console.log("ansh")
-      // console.log(values);
-      const result  = await dispatch(register(values))
-      console.log(result)
-      if (result){
-        alert("Registered Successfully")
-        router.push("/login")
+    initialValues,
+    onSubmit: async (values, action) => {
+      const result = await dispatch(register(values));
+      if (result) {
+        alert("Registered Successfully");
+        router.push("/login");
       }
       action.resetForm();
     },
   });
-   const handlelogin = () =>{
-    router.push("/login")
-   }
+
+  const handleLogin = () => {
+    router.push("/login");
+  };
+
   return (
-    <div className="flex justify-center h-screen bg-rose-200     items-center">
-    <Box sx={{ width: "30%", display: "flex", justifyContent: "center" }}>
-      <Box
-        sx={{
-          width: "400px",
-          height: "450px",
-          display: "flex",
-          flexDirection: "column",
-          border:'2px solid ',
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: '16px',
-          padding:"15px",
-          margin:"10px",
-          backgroundColor:"burlywood"
-        
-        }}
-      >
-         <CloseIcon
-            onClick={handleClear}
-            sx={{ position: "absolute", top: "12px", left: "90%" }}
-          />
-        <Typography className='text-lg '>Sign Up</Typography>
-        <form className="flex flex-col w-full " 
-          onSubmit={handleSubmit}
+    <Box className="flex justify-center h-screen bg-rose-200 items-center">
+      <Box sx={{ width: "100%", maxWidth: 400, mx: 2 }}>
+        <Box
+          sx={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 2,
+            p: 4,
+            bgcolor: "background.paper",
+            boxShadow: 3,
+          }}
         >
-           <h1 className="text-sm py-1">Full Name</h1>
-            <input
-             type="name"
+          <IconButton
+            onClick={handleClear}
+            sx={{ position: "absolute", top: 16, right: 16 }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h5" component="h1" gutterBottom>
+            Sign Up
+          </Typography>
+          <form className="flex flex-col w-full" onSubmit={handleSubmit}>
+            <TextField
+              label="Full Name"
               name="firstName"
               value={values.firstName}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="border w-full  py-2 text-sm px-2 "
+              error={touched.firstName && Boolean(errors.firstName)}
+              helperText={touched.firstName && errors.firstName}
+              margin="normal"
+              fullWidth
             />
-           {errors.firstName && touched.firstName && <div style={{color:'red'}}>{errors.firstName}</div>}
-           <h1 className="text-sm py-1">Email</h1>
-            <input
-              type="email"
+            <TextField
+              label="Email"
               name="email"
+              type="email"
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="border w-full py-2 text-sm px-2 border-emerald-500"
+              error={touched.email && Boolean(errors.email)}
+              helperText={touched.email && errors.email}
+              margin="normal"
+              fullWidth
             />
-             {errors.email && touched.email && <div style={{color:'red'}}>{errors.email}</div>}
-             <h1 className="text-sm py-1">Password</h1>
-            <input
-              type="password"
+            <TextField
+              label="Password"
               name="password"
+              type="password"
               value={values.password}
-              className="border w-full py-2 text-sm px-2 border-emerald-500"
               onChange={handleChange}
               onBlur={handleBlur}
+              error={touched.password && Boolean(errors.password)}
+              helperText={touched.password && errors.password}
+              margin="normal"
+              fullWidth
             />
-           {errors.password && touched.password && <div style={{color:'red'}}>{errors.password}</div>}
-           <h1 className="text-sm py-1">Mobile Number</h1>
-            <input
-              type="number"
+            <TextField
+              label="Mobile Number"
               name="phone"
+              type="tel"
               value={values.phone}
-              className="border w-full py-2 text-sm px-2 border-emerald-500"
               onChange={handleChange}
               onBlur={handleBlur}
+              error={touched.phone && Boolean(errors.phone)}
+              helperText={touched.phone && errors.phone}
+              margin="normal"
+              fullWidth
             />
-           {errors.phone && touched.phone && <div style={{color:'red'}}>{errors.phone}</div>}
-           <button className="bg-teal-400 rounded-md mt-2 mb-1 text-white text-sm py-2 px-2" onSubmit={handleSubmit}>Submit</button>
-           <div className="flex gap-2 mb-2 text-center justify-center ">
-             <h1>Already have account ? </h1>
-             <h2 onClick={handlelogin} className="cursor-pointer o hover:underline" >Login Now</h2>
-           </div>
-        </form>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Submit
+            </Button>
+            <Box className="flex justify-center" sx={{ mt: 2 }}>
+              <Typography variant="body2">
+                Already have an account?{" "}
+                <Button color="secondary" onClick={handleLogin}>
+                  Login Now
+                </Button>
+              </Typography>
+            </Box>
+          </form>
+        </Box>
       </Box>
     </Box>
-    </div>
   );
 };
 
