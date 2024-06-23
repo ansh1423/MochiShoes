@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listProduct } from '../../src/redux/slices/Product'
 export default function Index() {
   const dispatch=useDispatch();
-  const  data=useSelector((state)=>{state.product.product});
+  const  data=useSelector((state)=>{state.product.product.data});
   console.log(data)
   // const product=useSelector((state)=>state.product);
   useEffect(() => {

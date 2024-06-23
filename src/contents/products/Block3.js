@@ -14,25 +14,22 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function Block3({filter,setfilter}) {
- 
+function Block3({ filter, setfilter }) {
   return (
-    <Box sx={{ flexGrow: 2,  border:'4px'}}>
+    <Box sx={{ flexGrow: 1, border: '1px' }}>
       <Grid container spacing={0}>
-       
-        <Grid item xs={2.5}>
+        <Grid item xs={12} sm={4} md={3}>
           <Item>
-            <Block5 filter={filter} setfilter={setfilter}/>
+            <Block5 filter={filter} setfilter={setfilter} />
           </Item>
         </Grid>
-        <Grid item xs={9.5}>
-        <div style={{ }}>
-          <Item><Block6/></Item>
-          </div>
+        <Grid item xs={12} sm={8} md={9}>
+          <Item>
+            <Block6 />
+          </Item>
         </Grid>
       </Grid>
     </Box>
-
-  )
+  );
 }
 export default Block3

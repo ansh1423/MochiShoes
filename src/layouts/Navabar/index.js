@@ -94,7 +94,7 @@ const Index = () => {
 
   return (
     <div className="bg-white">
-      <div className="my-4 max-sm:my-0 bg-white mb-[60px] max-sm:mb-[20px]">
+      <div className="py-4 max-sm:my-0 bg-white mb-[60px] max-sm:mb-[20px]">
         <Button onClick={handleClick}>Open Login Dialog</Button>
         <Dialog open={dialogOpen} onClose={handleCloseDialog}>
           <Login setDilogOpen={setDialogOpen} />
@@ -104,7 +104,7 @@ const Index = () => {
           <MenuItems />
         </Drawer>
         <AppBar className="fixed top-0 bg-white text-black w-full z-10">
-          <div className="flex mt-4 mx-4 bg-white justify-between">
+          <div className="flex pt-4 px-4 bg-white justify-between">
             <div className="flex justify-start items-center">
               <MenuIcon className="md:hidden" onClick={() => setOpenDrawer(true)} />
               <img
@@ -116,14 +116,17 @@ const Index = () => {
             <div className="flex items-center">
               <div className="relative text-[15px] max-md:hidden">
                 <input
-                  type="search"
+                  
+                  type="text"
                   name="search"
                   id="search"
                   onKeyDown={handleKeyDown}
                   onChange={handleChangeSearchBar}
                   placeholder="What are you looking for....."
-                  className="border-cyan-500 w-96 h-10 border-2 max-md:hidden outline-1 px-2 py-3"
+                  className="border-cyan-500 w-96 h-10 font-black border-2 max-md:hidden outline-1 px-2 py-3 text-black"
+                  style={{ color: 'black' }}
                 />
+          
                 <SearchIcon
                   sx={{ position: "absolute", color: "cyan", top: "8px", right: "30px" }}
                   onClick={() => handleQuery(query)}

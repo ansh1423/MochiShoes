@@ -37,59 +37,44 @@ async updateProduct(data){
       return false;
   } 
   
-  async  listProduct(filter) {
-    let data;
+  async  listProduct(params) {
+    const { filter, sort } = params; // Destructure filter and sort from params
+    console.log(sort, "sortvaluelist");
+    console.log(filter, "listing products");
   
-     if (typeof filter !== 'undefined') {
-      data = {
-        query: {
-          $or: [
-            { "title.shortTitle": { "$regex": filter, "$options": "i" } },
-            { "title.longTitle": { "$regex": filter, "$options": "i" } },
-            { "category": { "$regex": filter, "$options": "i" } },
-            { "subCategory": { "$regex": filter, "$options": "i" } }
-          ]
-        },
-        options: {
-          collation: "",
-          sort: { "name": 1 },
-          populate: "",
-          projection: "",
-          lean: false,
-          leanWithId: true,
-          page: 1,
-          limit: 20,
-          pagination: true,
-          useEstimatedCount: false,
-          useCustomCountFn: false,
-          forceCountFn: false,
-          read: {},
-          options: {}
-        },
-        isCountOnly: false
-      };
-    } else {
-      data = {
-        query: {},
-        options: {
-          collation: "",
-          sort: { "name": 1 },
-          populate: "",
-          projection: "",
-          lean: false,
-          leanWithId: true,
-          page: 1,
-          limit: 20,
-          pagination: true,
-          useEstimatedCount: false,
-          useCustomCountFn: false,
-          forceCountFn: false,
-          read: {},
-          options: {}
-        },
-        isCountOnly: false
+    let query = {};
+    if (filter) {
+      query = {
+        $or: [
+          { category: { $regex: filter, $options: 'i' } },
+          { 'title.shortTitle': { $regex: filter, $options: 'i' } },
+          { 'title.longTitle': { $regex: filter, $options: 'i' } }
+        ]
       };
     }
+  
+    const data = {
+      query: query,
+      options: {
+        collation: "",
+        sort: {
+          "price":sort
+        }, // Use the sort parameter dynamically
+        populate: "",
+        projection: "",
+        lean: false,
+        leanWithId: true,
+        page: 1,
+        limit: 20,
+        pagination: true,
+        useEstimatedCount: false,
+        useCustomCountFn: false,
+        forceCountFn: false,
+        read: {},
+        options: {}
+      },
+      isCountOnly: false
+    };
   
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/userapp/product/list`, data, {
@@ -107,8 +92,12 @@ async updateProduct(data){
       return false;
     }
   }
-    
+  
 
-  }     
+  
+
+  
+
+}    
      
     export const productApi = new ProductApi();

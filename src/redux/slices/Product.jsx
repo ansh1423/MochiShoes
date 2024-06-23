@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { productApi } from "../../mocks/Product";
 
 const initialState = {
@@ -60,13 +60,17 @@ export const deleteProduct= () =>async (dispatch)=>{
   }  
 }
 
-export const listProduct = (query) => async (dispatch)=>{
-    const result =await productApi.listProduct(query);
-    console.log(result)
-    if(result){
+export const listProduct = createAsyncThunk(
+    'products/listProduct',
+    async (params, { dispatch }) => {
+      console.log(params.sort, "againchecksort"); // Check if the sort value is correct here
+      const result = await productApi.listProduct(params);
+      console.log(result);
+      if (result) {
         await dispatch(slice.actions.listProduct(result));
         return true;
+      }
+      return false;
     }
-    return false;
-}
+  );
 export default slice;
