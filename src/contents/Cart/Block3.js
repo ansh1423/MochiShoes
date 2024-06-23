@@ -14,31 +14,30 @@ function Block3() {
   };
  
   const dispatch = useDispatch();
-  const handleDelete = async(id) => {
-    console.log(id)
+  const handleDelete = async (id) => {
+    console.log(id);
     try {
       const res = await dispatch(deleteCart(id));
-      console.log(res)
-    if(res){
-        
-    }
-    // else{
-    //   return false;
-    // }
+      console.log(res);
+  
+      if (res) {
+        // Optionally, you can handle additional logic here
+      }
     } catch (error) {
       console.log(error);
     }
-    
   };
+    
+  
   return (
     <>
-      <div>
+      <div className="max-sm:mt-96" >
         {data &&
           data.length > 0 &&
           data.map((item,index) => (
             <div key={index} className="flex justify-between ">
               <div className="mx-4 my-4  flex">
-                <div className="flex py-4 mx-3 ">
+                <div className="py-4 flex max-sm:flex-col max-sm:py-8 mx-3 ">
                   <div className="text-sm">Items(1) </div>
                   
                   <div>
@@ -51,11 +50,11 @@ function Block3() {
                         item.products[0].productId.image
                       }
                       alt="hhd"
-                      className="w-48 h-48 mr-5"
+                      className="w-48 max-sm:w-32 max-sm:h-32 h-48 mr-5"
                     />
                   </div>
                   <div>
-                    <p className="font-semibold">
+                    <p className="font-semibold max-sm:font-normal">
                       {" "}
                       {item &&
                         item.products.length > 0 &&

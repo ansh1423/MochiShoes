@@ -115,13 +115,13 @@ function Block6() {
             )}
           
      
-      <h1>Select Address Type</h1>
-      <div>
+      <h1 className='my-2'>Select Address Type</h1>
+      <div className=''>
         <input type="checkbox" name="Home" id="Home" className=' py-2 mx-2' placeholder='Home' />Home
         <input type="checkbox" name="Home" id="Home" className='py-1 mx-2' placeholder='Home' />Office
       </div>
       <div>
-        <button  type='submit' className='bg-green-700 flex justify-end rounded-md font-mulish font-[700px] text-white px-2 py-2' >Submit</button>
+        <button  type='submit' className='bg-green-700 my-2 flex justify-end rounded-md font-mulish font-[700px] text-white px-2 py-2' >Submit</button>
       </div>
     </form>
     </div>

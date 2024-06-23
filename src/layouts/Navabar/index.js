@@ -11,6 +11,8 @@ import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import MenuItems from "./MenuItems/index";
 import Login from "../../components/auth/Login";
 import { getUser, logoutUser } from "../../redux/slices/Auth";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
 import { listProduct } from "../../redux/slices/Product";
 
 const Index = () => {
@@ -70,9 +72,11 @@ const Index = () => {
   const handleCloseDialog = () => {
     setDialogOpen(false);
   };
+  const [clicked, setClicked] = useState({});
+
 
   const handleFavoriteClick = () => {
-    setIsClicked(!isClicked);
+    setIsClicked((prevIsClicked) => !prevIsClicked);
   };
 
   const handleClicks = (event) => {
@@ -94,7 +98,7 @@ const Index = () => {
 
   return (
     <div className="bg-white">
-      <div className="py-4 max-sm:my-0 bg-white mb-[60px] max-sm:mb-[20px]">
+      <div className=" max-sm:my-0 bg-white mb-[60px] max-sm:mb-[20px]">
         <Button onClick={handleClick}>Open Login Dialog</Button>
         <Dialog open={dialogOpen} onClose={handleCloseDialog}>
           <Login setDilogOpen={setDialogOpen} />
@@ -132,9 +136,14 @@ const Index = () => {
                   onClick={() => handleQuery(query)}
                 />
               </div>
-              <IconButton onClick={handleFavoriteClick} sx={{ backgroundColor: isClicked ? "red" : "transparent", "&:hover": { backgroundColor: isClicked ? "darkred" : "lightgray" } }}>
-                <FavoriteBorderOutlinedIcon sx={{ fontSize: "30px", color: "black" }} />
+              <IconButton onClick={handleFavoriteClick}>
+                {isClicked ? (
+                  <FavoriteIcon style={{ color: 'red' }} />
+                ) : (
+                  <FavoriteBorderOutlinedIcon style={{ color: 'black' }} />
+                )}
               </IconButton>
+
               <Box>
                 {auth?.email ? (
                   <Stack direction="row" spacing={2}>
@@ -188,8 +197,8 @@ const Index = () => {
                   </Box>
                 </Popover>
               </Box>
-              <Badge badgeContent={cartItem.length} color="secondary">
-                <ShoppingBagOutlinedIcon sx={{ fontSize: "30px", color: "black" }} />
+              <Badge badgeContent={cartItem?.length} color="secondary">
+                <ShoppingBagOutlinedIcon onClick={()=>router.push("/Cart")} sx={{ fontSize: "30px", color: "black" }} />
               </Badge>
             </div>
           </div>

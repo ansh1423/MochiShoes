@@ -10,11 +10,11 @@ function Block4() {
      <h1 className='mx-8 py-2'>CHOOSE PAYMENT MODE</h1>
     <Box sx={{ flexGrow: 1 }}>
     <Grid container spacing={2} columns={16}>
-      <Grid sx={{position:"sticky", top:"100px", maxHeight:"100vh" , width:'100%'}} item xs={10} >
+      <Grid sx={{position:"sticky", top:"100px", maxHeight:"100vh" , width:'100%'}} item md={10} xs={16} >
         <Block3/>
       </Grid>
      
-      <Grid item xs={6}>
+      <Grid item md={6} xs={16}>
        <Block2/>
       </Grid>
     </Grid>

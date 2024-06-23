@@ -29,7 +29,7 @@ export default function Home() {
 
     useEffect(() => {
         const getProduct = async () => {
-            const result = await dispatch(listProduct());
+            const result = await dispatch(listProduct({ filter: '', sort: '' })); 
             console.log(result);
             setLoading(false); // Set loading to false once data is fetched
         };
@@ -47,7 +47,7 @@ export default function Home() {
                 <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet" />
             </Head>
 
-            <Navbar />
+
 
             {loading ? ( // Show loader while loading is true
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -55,6 +55,7 @@ export default function Home() {
                 </div>
             ) : ( // Show content once loading is false
                 <>
+                    <Navbar />
                     <Block1 />
                     <Block2 />
                     <Block3 />

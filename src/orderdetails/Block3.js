@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Block4 from './Block4'
+import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux';
 
 function Block3() {
+  const router =useRouter();
+  const path = router.query.orderId;
+  console.log(path);
+  const data = useSelector((state) => state?.order?.order);
+  console.log(data)
+  const dataItem = data && data.length > 0 && data.find((item) => item.id === path);
+
+   console.log(dataItem)
+
   return (
     <>
     <div className='flex justify-between text-base my-6 font-medium'>
     <h1 className='text-black '>Order details (MO2021292991)</h1>
-    <h2 className='bg-cyan-500 text-sm py-2 mt-5 rounded-lg text-white font-medium px-3 '>Cancel Order</h2> 
+    <h2   className='bg-cyan-500 text-sm py-2 mt-5 rounded-lg text-white font-medium px-3 '>Cancel Order</h2> 
   </div>
   <hr />
   <div className='flex justify-between py-2  text-base font-medium'>

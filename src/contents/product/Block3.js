@@ -1,112 +1,65 @@
+import React, { useState } from 'react';
 import { Box, styled } from '@mui/material';
 import { useRouter } from 'next/router';
-import React from 'react'
 import { useSelector } from 'react-redux';
-import Slider from "react-slick";
 import FavoriteBorderSharpIcon from '@mui/icons-material/FavoriteBorderSharp';
-// import { baseUrl } from "./config";
-const Container = styled(Box)(({ theme }) => ({
+import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
 
-    width: "700px",
-    height: "600px",
-    [theme.breakpoints.down('lg')]: {
-      width:"440px",
-      height:"330px",
-      marginRight:"10px"
-  
-      },
-      [theme.breakpoints.down('md')]: {
-        width:"380px",
-        height:"350px"
-        },
-  
-  }))
 const ImageWrapper = styled(Box)(({ theme }) => ({
-    display: "flex",
-    marginLeft: "140px",
-    gap:"",
-    [theme.breakpoints.down('lg')]: {
-       marginLeft:'80px',
-       marginRight:"10px"
-      },
-  }))
-const Image = styled("img")(({ theme }) => ({
-    width:"550px",
-    height:"450px",
-    objectFit:"cover",
-    // "&:hover": {
-    //   filter: "blur(2px)"
-    // },
-    [theme.breakpoints.down('lg')]: {
-      width:"350px",
-      height:'320px'
-      },
-      [theme.breakpoints.down('md')]: {
-        width:"299px",
-        height:'280px'
-        },
-  
-  }))
-  const Image1 = styled("img")(({ theme }) => ({
-    width:'140px',
-    height:"140px",
-    marginBottom:'20px',
-    marginLeft:"30px",
-     
-    border:"1px solid teal",
-    [theme.breakpoints.down('lg')]: {
-      width:"100px",
-      height:'100px'
-      },
-    }))
-function Block3 (){
-  const router=useRouter();
-  const path=router.query.ProductId;
-  console.log(path)
-  const data = useSelector((state)=>state.product.product)
-  console.log(data);
-  const dataItem =  data && data.length>0 && data?.filter((item)=> item.id === path)
-  console.log(data.Item);
-  console.log(dataItem);
-  
-    const settings = {
-        customPaging: function(index) {
-          return (
-            <a className='relative bottom-[26rem] right-10'> 
-              <Image1 src={dataItem && dataItem.length>0 && dataItem[0].productImages && dataItem[0].productImages[index].path} />
-            </a>
-          );
-        },
-        dots: true,
-        dotsclass: "",
-        infinite: true,
-        autoPlay:true,
-        autoPlaySpeed:2000,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1
-      };    
-      
-  return (
-    <Container className='z-[1px] absolute'>
-      <FavoriteBorderSharpIcon sx={{width:'100px'}} className='relative  left-[40rem]'/>
-    {/* <h2>Custom Paging</h2> */}
-    <Slider {...settings}>
-      {dataItem &&  dataItem.length>0 && dataItem[0].productImages.length>0 && dataItem[0].productImages.map((item,index)=>(
-      <ImageWrapper key={index}>
-      <Image src={item.path} />
-      </ImageWrapper>
-      ))}
-       {/* </ImageWrapper>
-      <ImageWrapper>
-      </ImageWrapper>
-      <ImageWrapper>
-        <Image src='https://admin.mochishoes.com/product/19-120/660/19-120M23.jpg' />
-      </ImageWrapper>
-        */}
-    </Slider>
-  </Container>
-);
-  }
+  position: 'relative',
+  border: '2px solid black', // Border around images
+  borderRadius: '8px', // Rounded corners
+  overflow: 'hidden', // Ensure images stay within border
+}));
 
-export default Block3
+const Image = styled('img')(({ theme }) => ({
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+}));
+
+function Block3() {
+  const router = useRouter();
+  const path = router.query.ProductId;
+
+  const data = useSelector((state) => state?.product?.product?.data);
+
+  const dataItem = data && data.length > 0 && data.find((item) => item.id === path);
+
+  const [likedImages, setLikedImages] = useState([]);
+
+  const handleClick = (index) => {
+    setLikedImages((prevLikedImages) =>
+      prevLikedImages.includes(index)
+        ? prevLikedImages.filter((i) => i !== index)
+        : [...prevLikedImages, index]
+    );
+  };
+
+  return (
+    <div className="relative my-4 bg-white shadow-lg rounded-lg">
+      <div className="grid max-sm:mx-4 grid-cols-2 gap-4">
+        {dataItem &&
+          dataItem.productImages &&
+          dataItem.productImages.map((item, index) => (
+            <ImageWrapper key={index} className="w-full h-64">
+              <Image src={item.path} alt={`Image ${index + 1}`} />
+              {likedImages.includes(index) ? (
+                <FavoriteSharpIcon
+                  onClick={() => handleClick(index)}
+                  sx={{ position: 'absolute', top: '10px', right: '10px', zIndex: '1', color: 'red', cursor: 'pointer' }}
+                />
+              ) : (
+                <FavoriteBorderSharpIcon
+                  onClick={() => handleClick(index)}
+                  sx={{ position: 'absolute', top: '10px', right: '10px', zIndex: '1', color: 'black', cursor: 'pointer' }}
+                />
+              )}
+            </ImageWrapper>
+          ))}
+      </div>
+    </div>
+  );
+}
+
+export default Block3;

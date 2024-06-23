@@ -3,7 +3,7 @@ import React from 'react'
 
 function Block2() {
   return (
-    <>
+    <div className='max-sm:hidden'>
       <div className='py-3  border cursor-pointer hover:bg-slate-200 px-4 mx-6'>
         <h1>MY PROFILE</h1>
       </div>
@@ -26,7 +26,7 @@ function Block2() {
       <h1>LOYAL TRANSCATION</h1>
     </div>
    
-    </>
+    </div>
   )
 }
 

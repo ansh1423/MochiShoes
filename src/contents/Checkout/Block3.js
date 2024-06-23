@@ -133,7 +133,7 @@ function Block3() {
      dispatch(deleteCart(item.id));
         
       })}
-    //   router.push('/order');
+     router.push('/order');
       
       alert('Order Placed  Successfully');
      }
@@ -192,48 +192,51 @@ function Block3() {
 
   return (
     <>
-     <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
+    <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
     <Accordion expanded={expanded === 'panel1'} sx={{width:'100%'}} onChange={handleChange('panel1')}>
       <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-        <Typography >CREDIT CARD</Typography>
+        <Typography>CREDIT CARD</Typography>
       </AccordionSummary>
       <AccordionDetails className='flex justify-end'>
-         <button onClick={handlePay} className='py-3  flex justify-end text-white my-2 px-6 rounded-lg text-xl bg-teal-500'>Pay now</button>
-      </AccordionDetails >
+        <button onClick={handlePay} className='py-3 flex justify-end text-white my-2 px-6 rounded-lg text-xl bg-teal-500'>Pay now</button>
+      </AccordionDetails>
     </Accordion>
     <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
       <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
         <Typography>DEBIT CARD</Typography>
       </AccordionSummary>
       <AccordionDetails className='flex justify-end'>
-      <button className='py-3  flex justify-end text-white my-2 px-6 rounded-lg text-xl bg-teal-500'>Pay now</button>
-      </AccordionDetails >
-    </Accordion>
-    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-      <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-        <Typography>WALLET</Typography>
-      </AccordionSummary>
-      <AccordionDetails className='flex justify-end'>
-      <button className='py-3  flex justify-end text-white my-2 px-6 rounded-lg text-xl bg-teal-500'>Pay now</button>
-      </AccordionDetails >
+        <button className='py-3 flex justify-end text-white my-2 px-6 rounded-lg text-xl bg-teal-500'>Pay now</button>
+      </AccordionDetails>
     </Accordion>
     <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
       <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+        <Typography>WALLET</Typography>
+      </AccordionSummary>
+      <AccordionDetails className='flex justify-end'>
+        <button className='py-3 flex justify-end text-white my-2 px-6 rounded-lg text-xl bg-teal-500'>Pay now</button>
+      </AccordionDetails>
+    </Accordion>
+    <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+      <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
         <Typography>NET BANKING</Typography>
       </AccordionSummary>
       <AccordionDetails className='flex justify-end'>
-      <button className='py-3  flex justify-end text-white my-2 px-6 rounded-lg text-xl bg-teal-500'>Pay now</button>
-      </AccordionDetails >
+        <button className='py-3 flex justify-end text-white my-2 px-6 rounded-lg text-xl bg-teal-500'>Pay now</button>
+      </AccordionDetails>
     </Accordion>
-    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-      <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+    <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+      <AccordionSummary aria-controls="panel5d-content" id="panel5d-header">
         <Typography>CASH ON DELIVERY</Typography>
       </AccordionSummary>
       <AccordionDetails className='flex justify-end'>
-      <button  onClick={cashOnDelivery}  className='py-3  flex justify-end text-white my-2 px-6 rounded-lg text-xl bg-teal-500'>Pay now</button>
-      </AccordionDetails >
+        <button onClick={cashOnDelivery} className='py-3 flex justify-end text-white my-2 px-6 rounded-lg text-xl bg-teal-500'>Pay now</button>
+      </AccordionDetails>
     </Accordion>
   </>
+  
+  
+  
 );
 }
 

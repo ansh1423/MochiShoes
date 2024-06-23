@@ -12,47 +12,60 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from '../../redux/slices/Cart';
 import { useRouter } from 'next/router';
 function Block4() {
-  const router=useRouter();
-  const path=router.query.ProductId;
+  // const router = useRouter();
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const path = router.query.ProductId;
   console.log(path);
-  const data = useSelector((state)=>state.product.product)
-  const dataItem =  data && data.length>0 && data?.filter((item)=> item.id === path)
-  console.log(dataItem);
-  const dispatch = useDispatch()
+
+  const data = useSelector((state) => state.product.product.data);
+  console.log(data);
+
+  const dataItem = data && data.length > 0 && data?.find((item) => item.id === path);
+   console.log(dataItem);
+ 
+  // const dispatch = useDispatch()
   const {user} = useSelector((state)=> state.user)
   
   
   const addCart = async (productId) => {
+  
+    // const user = useSelector((state) => state.user); // Assuming user data is in the state
+  
     const data = {
-      "userId":user.id,
-      "products":[{
-        "productId":productId,
-        "qty":1
+      userId: user.id,
+      products: [{
+        productId: productId,
+        qty: 1
       }]
+    };
+    
+    console.log(data);
+    
+    try {
+      const result = await dispatch(createCart(data)); // Wait for the action to complete
+      console.log(result);
+      if (result) {
+        router.push('/Cart'); // Navigate only if the action was successful
+      }
+    } catch (error) {
+      console.error('Error creating cart:', error);
     }
-    console.log(data)
-   const result=  await dispatch(createCart(data))
-   console.log(result);
-   if(result){
-    router.push('/Cart');
-
-   }
-   
-  }
-
- 
-  const images1=dataItem && dataItem[0] && dataItem[0].productImages;
-  console.log(dataItem && dataItem[0] && dataItem[0].title.longTitle)
+  };
+  
+  
+   const images1=dataItem && dataItem.image;
+   console.log(dataItem && dataItem[0] && dataItem[0].title.longTitle)
   return (
     <>
-    <div className='mx-8 font-mulish'>
+    <div className='mx-8 max-sm:mt-20 font-mulish'>
     <h1 className='text-[30px] font-[700] my-2'>Mochi</h1>
     <div className='flex justify-between '>
-    <p className='text-[17px] font-[600] '>{dataItem && dataItem[0] && dataItem[0].title && dataItem[0].title.shortTitle}</p>
+    <p className='text-[17px] font-[600] '>{dataItem && dataItem.title && dataItem.title.shortTitle}</p>
     <p className="mx-9 "><ShareIcon  /></p>
     </div>
    <p className='text-sm py-2'>SKU: 18-1582-11-40</p> 
-    <p className='text-3xl font-[900]'>Rs.{ dataItem && dataItem[0] && dataItem[0].price && dataItem[0].price.mrp}.00</p>
+    <p className='text-3xl font-[900]'>Rs.{ dataItem&& dataItem.price && dataItem.price.mrp}.00</p>
     <p className='text-sm font-medium text-teal-400'>(Inclusive of all taxes)</p>
     <p className='my-2 py-2 font-bold'>SELECT SIZE (UK)</p>
     <div className='flex '> 
@@ -77,18 +90,19 @@ function Block4() {
     </div>
     <h1 className='my-2 py-2 font-bold'>AVAILABLE COLORS</h1>
     <div className='flex  py-2'>
+    {dataItem && dataItem.productImages && dataItem.productImages.length>0 && dataItem.productImages.map((item,index)=>{
+      
     <div className='w-14 h-14 object-contain  border rounded-full items-center flex justify-center'>
       
-         <img src={images1[0]?.path} alt="" />
-         {/* <Image1 src={dataItem && dataItem.length>0 && dataItem[0].productImages && dataItem[0].productImages[index].path} /> */}
+        
+         <Image src={item.path} />
         </div>
-        <div className='w-14 h-14 object-contain  border mx-1 rounded-full items-center flex justify-center'>
-           <img src={images1[2]?.path} alt="" />
-        </div>
+        })}
+    
         
     </div>
      <div>
-        <button onClick={()=>addCart(dataItem && dataItem[0] && dataItem[0].id)} className="border py-2 my-4 px-4  rounded-md border-neutral-400">ADD TO CARD</button>
+        <button onClick={()=>addCart(dataItem && dataItem.id)} className="border py-2 my-4 px-4  rounded-md border-neutral-400">ADD TO CARD</button>
         <button onClick={()=>router.push("/checkout")}  className=" py-2 px-24 rounded-md mx-4 bg-teal-500 text-white ">BUY NOW</button>
      </div>
      <div>

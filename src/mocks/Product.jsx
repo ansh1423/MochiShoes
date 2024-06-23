@@ -58,7 +58,7 @@ async updateProduct(data){
       options: {
         collation: "",
         sort: {
-          "price":sort
+          "price": sort
         }, // Use the sort parameter dynamically
         populate: "",
         projection: "",
@@ -92,7 +92,7 @@ async updateProduct(data){
       return false;
     }
   }
-  
+ 
 
   
 

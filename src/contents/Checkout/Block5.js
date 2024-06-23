@@ -10,11 +10,11 @@ function Block5() {
    <h1 className='mx-8 py-2'>Shipping Address</h1>
   <Box sx={{ flexGrow: 1 }}>
   <Grid container spacing={2} columns={16}>
-    <Grid sx={{position:"sticky", top:"100px", maxHeight:"120vh"}} item xs={10}>
+<Grid sx={{position:{md:"sticky", xs:'relative'},  top:{xs:'10px', md:"100px"}, maxHeight:"120vh"}} item md={10} xs={16}>
       <Block6/>
     </Grid>
    
-    <Grid item xs={6}>
+    <Grid item md={6} xs={16}>
      <Block2/>
     </Grid>
   </Grid>

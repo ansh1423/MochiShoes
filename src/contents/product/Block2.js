@@ -7,13 +7,13 @@ import { useSelector } from 'react-redux'
 function Block2() {
  
   return (
-    <Box sx={{ flexGrow: 1, marginLeft:'30px' }}>
-    <Grid container spacing={2} columns={2}>
-      <Grid sx={{position:"sticky", height:'100%' , top:"100px", }} item xs={1}>
-        <Block3/>
+    <Box sx={{ flexGrow: 1, marginLeft: '30px' }}>
+    <Grid container spacing={2} columns={2} >
+      <Grid sx={{ position: { xs: "relative", md: "sticky" }, height: '100%', top: "100px" }} item xs={2} md={1}>
+        <Block3 />
       </Grid>
-      <Grid item xs={1}>
-       <Block4/>
+      <Grid item xs={2} md={1}>
+        <Block4 />
       </Grid>
     </Grid>
   </Box>

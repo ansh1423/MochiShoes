@@ -148,7 +148,7 @@ console.log(props.sliderData)
       };
       
       const product=useSelector((state)=>state?.product?.product);
-      console.log(product);
+      console.log(product?.data);
   return (
     <>
     
