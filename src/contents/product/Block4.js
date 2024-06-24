@@ -95,7 +95,7 @@ function Block4() {
     <div className='w-14 h-14 object-contain  border rounded-full items-center flex justify-center'>
       
         
-         <Image src={item.path} />
+         <img src={item.path}  />
         </div>
         })}
     

@@ -29,7 +29,7 @@ export default function Index() {
     <>
 
 
-      // Show content once loading is false
+     
     
         <Navabar />
         <Block1 />
