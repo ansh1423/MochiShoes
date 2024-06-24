@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Orderlist } from '../redux/slices/Order';
+import Image from 'next/image';
 
 function Block3() {
   const router = useRouter();
@@ -37,7 +38,13 @@ function Block3() {
                 <tbody>
                   <tr className='font-mulish text-[14px]'>
                     <td className='flex items-center space-x-4'>
-                      <img src={product?.productId?.image} className='w-14 h-12' alt="" />
+                    <Image
+  src={product?.productId?.image}
+  alt=""
+  width={56}
+  height={48}
+  className="w-14 h-12"
+/>
                       <p>{product?.productId?.shortTitle}</p>
                     </td>
                     <td>{new Date(item.updatedAt).toLocaleString()}</td>

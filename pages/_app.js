@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import Head from 'next/head';
 import store from '../src/redux/stores/store';
 import '../styles/globals.css';
+import Image from 'next/image';
 
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
@@ -49,7 +50,7 @@ function MyApp({ Component, pageProps }) {
       {loading ? (
         // Show loader while loading is true
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <img src="/loader.gif" alt="Loading..." />
+<Image src="/loader.gif" alt="Loading..."  width={200} height={200} />
         </div>
       ) : (
         <Provider store={store}>

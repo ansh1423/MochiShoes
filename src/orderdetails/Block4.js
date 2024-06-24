@@ -4,6 +4,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import Image from 'next/image';
 
 const style = {
   width: '100%',
@@ -24,7 +25,12 @@ function Block4() {
       <th>Action</th>
     </tr>
     <tr className='border-2'>
-      <td><img src="https://admin.mochishoes.com/product/16-447/250/16-447M23.jpg"  className='w-14 h-16' alt="" /> </td>
+      <td>  <Image
+    src="https://admin.mochishoes.com/product/16-447/250/16-447M23.jpg"
+    alt=""
+    width={56}
+    height={64}
+  /> </td>
       <td>Rs.0</td>
        <td>1</td>
        <td>Rs. 2,490</td>

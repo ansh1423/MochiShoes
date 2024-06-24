@@ -20,6 +20,7 @@ import Footer from '../src/layouts/Footer';
 import Footer1 from '../src/layouts/Footer1';
 import { Products } from '../src/constants/home/Products';
 import { listProduct } from '../src/redux/slices/Product';
+import Image from 'next/image';
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -51,7 +52,7 @@ export default function Home() {
 
             {loading ? ( // Show loader while loading is true
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                <img src="/loader.gif" alt="Loading..." />
+<Image  src="/loader.gif" alt="Loading..." width={200} height={200} />
                 </div>
             ) : ( // Show content once loading is false
                 <>

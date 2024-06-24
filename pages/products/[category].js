@@ -8,6 +8,7 @@ import Footer from '../../src/layouts/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProduct } from '../../src/redux/slices/Product';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 function Index() {
   const router = useRouter();
@@ -50,7 +51,7 @@ function Index() {
       <div>
         {loading ? (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <img src="/loader.gif" alt="Loading..." />
+         <Image src="/loader.gif" alt="Loading..."  width={200} height={200}/>
           </div>
         ) : (
           <>
